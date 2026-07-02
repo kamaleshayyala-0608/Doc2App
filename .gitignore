@@ -31,3 +31,7 @@ Desktop.ini
 # Generated projects and memory
 backend/generated_projects/
 backend/memory/
+
+# Python cache
+__pycache__/
+*.pyc

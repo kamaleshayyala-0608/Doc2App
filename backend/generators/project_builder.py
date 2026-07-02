@@ -83,11 +83,11 @@ class ProjectBuilder:
                             
         return json.dumps(merged, indent=2)
 
-    def generate_and_save_file(self, file_path, architecture, generated):
+    def generate_and_save_file(self, file_path, architecture, generated, requirements=None):
         code = None
         for attempt in range(3):
             print(f"Generating file: {file_path} (attempt {attempt + 1})")
-            code = generate_file(file_path, architecture, generated)
+            code = generate_file(file_path, architecture, generated, requirements)
             if code and code.strip():
                 break
                 
@@ -135,7 +135,7 @@ class ProjectBuilder:
             
         return True
 
-    def build(self, architecture):
+    def build(self, architecture, requirements=None):
         print("Cleaning previous project build...")
         if os.path.exists(self.project_dir):
             try:
@@ -168,7 +168,7 @@ class ProjectBuilder:
         
         # Initial file generation pass
         for file_path in sorted_files:
-            self.generate_and_save_file(file_path, architecture, generated)
+            self.generate_and_save_file(file_path, architecture, generated, requirements)
             
         # Recursive completeness recovery loop
         max_passes = 3
@@ -184,7 +184,7 @@ class ProjectBuilder:
                 
             print(f"Completeness check (Pass {pass_idx + 1}): Found missing files to generate/regenerate: {missing}")
             for file_path in missing:
-                self.generate_and_save_file(file_path, architecture, generated)
+                self.generate_and_save_file(file_path, architecture, generated, requirements)
                 
         # Final completeness log
         final_missing = []

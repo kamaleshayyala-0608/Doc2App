@@ -3,12 +3,14 @@ from llm.ollama_client import ask_llm
 from llm.prompts import FILE_GENERATION_PROMPT
 import re
 
-def generate_file(file_path, architecture, generated_files):
+def generate_file(file_path, architecture, generated_files, requirements=None):
     generated_context = "\n".join(generated_files.keys())
+    
+    req_context = f"\nRequirements:\n{requirements}\n" if requirements else ""
     
     prompt = f"""
     {FILE_GENERATION_PROMPT}
-
+    {req_context}
     Architecture:
     {architecture}
 

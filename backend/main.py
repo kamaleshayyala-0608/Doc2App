@@ -108,8 +108,13 @@ async def build_project():
         with open("generated_projects/architecture.json", "r", encoding="utf-8") as f:
             architecture = f.read()
             
+        requirements = None
+        if os.path.exists("generated_projects/requirements.json"):
+            with open("generated_projects/requirements.json", "r", encoding="utf-8") as f:
+                requirements = f.read()
+            
         builder = ProjectBuilder()
-        builder.build(architecture)
+        builder.build(architecture, requirements)
         
         print("Project generation finished")
         return {"status": "success", "message": "Project generated successfully"}
