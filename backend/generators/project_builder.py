@@ -24,6 +24,24 @@ class ProjectBuilder:
         else:
             print(f"Warning: Template path {template_path} does not exist.")
 
+    def clean_project_dir(self):
+        if not os.path.exists(self.project_dir):
+            os.makedirs(self.project_dir, exist_ok=True)
+            return
+
+        print(f"Cleaning project directory {self.project_dir} (preserving node_modules)...")
+        for item in os.listdir(self.project_dir):
+            if item == "node_modules":
+                continue
+            item_path = os.path.join(self.project_dir, item)
+            try:
+                if os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+                else:
+                    os.remove(item_path)
+            except Exception as e:
+                print(f"Warning: Could not remove {item_path}: {e}")
+
     def merge_package_json(self, template_content, generated_content):
         try:
             template = json.loads(template_content)
@@ -137,12 +155,7 @@ class ProjectBuilder:
 
     def build(self, architecture, requirements=None):
         print("Cleaning previous project build...")
-        if os.path.exists(self.project_dir):
-            try:
-                shutil.rmtree(self.project_dir)
-            except Exception as e:
-                print(f"Warning: Could not remove previous project build folder: {e}. Overwriting files instead.")
-        os.makedirs(self.project_dir, exist_ok=True)
+        self.clean_project_dir()
 
         print("Generating Manifest...")
         manifest = generate_manifest(architecture)
