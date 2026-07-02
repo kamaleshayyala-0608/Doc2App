@@ -181,6 +181,9 @@ class ProjectBuilder:
         
         # Initial file generation pass
         for file_path in sorted_files:
+            if file_path in ["src/main.jsx", "src/main.js", "src/index.jsx", "src/index.js"]:
+                print(f"Skipping entrypoint generation for {file_path} to preserve template mounting logic.")
+                continue
             self.generate_and_save_file(file_path, architecture, generated, requirements)
             
         # Recursive completeness recovery loop
@@ -197,6 +200,8 @@ class ProjectBuilder:
                 
             print(f"Completeness check (Pass {pass_idx + 1}): Found missing files to generate/regenerate: {missing}")
             for file_path in missing:
+                if file_path in ["src/main.jsx", "src/main.js", "src/index.jsx", "src/index.js"]:
+                    continue
                 self.generate_and_save_file(file_path, architecture, generated, requirements)
                 
         # Final completeness log
@@ -252,6 +257,12 @@ class ProjectBuilder:
                 # Ensure type="module" is present for Vite ES module loading
                 if 'src="/src/main.jsx"' in new_content and 'type="module"' not in new_content:
                     new_content = new_content.replace('src="/src/main.jsx"', 'type="module" src="/src/main.jsx"')
+                # Fix index.css paths in index.html to refer to /src/index.css
+                incorrect_css = [
+                    'href="./index.css"', 'href="index.css"', 'href="/index.css"'
+                ]
+                for css in incorrect_css:
+                    new_content = new_content.replace(css, 'href="/src/index.css"')
                 if new_content != content:
                     print("Sanitizing index.html script tag...")
                     with open(index_html_path, "w", encoding="utf-8") as f:
