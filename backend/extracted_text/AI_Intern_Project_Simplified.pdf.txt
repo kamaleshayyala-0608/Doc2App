@@ -1,0 +1,54 @@
+DHRUV TECHNOLOGY SOLUTIONS
+Intern Project Assessment
+APPLIED AI: VISION & RETRIEVAL APPLICATIONS
+1. PROJECT OVERVIEW
+The goal of this assignment is to evaluate your practical skills in building and deploying foundational AI
+workflows. You will be building two distinct, highly practical modules: a custom-trained object detection
+model and a document-based Q&A chatbot. These tasks will test your ability to handle data, train
+models, and manage Retrieval-Augmented Generation (RAG) pipelines within strict hardware limits.
+2. HARDWARE CONSTRAINTS
+Target Environment: 12th Gen Intel Core i7, 16GB RAM, NVIDIA RTX 3050 (4 GB VRAM).
+Note: Because you are restricted to 4 GB of VRAM, you must use optimized model architectures. For vision,
+rely on Nano or Small YOLO variants. For language models, you must use 4-bit quantized local models (e.g.,
+GGUF via Ollama/llama.cpp) to prevent memory crashes. 
+3. CORE REQUIREMENTS
+Part A: Packaged Water Brand Detection (YOLO + OpenCV)
+Train a custom computer vision model capable of identifying different brands of packaged drinking water
+in real-time.
+Dataset & Training: Gather a small dataset and train/fine-tune a YOLO model (YOLOv8 or
+YOLOv10) to detect and classify specific water bottle brands (e.g., Bisleri, Kinley, Aquafina).
+Live Inference: Use OpenCV to run the trained model on a webcam feed or a test video. The output
+should display bounding boxes, brand labels, and confidence scores directly on the video stream.
+Optimization: Ensure the chosen YOLO variant is lightweight enough to run without lagging your
+system.
+• 
+• 
+• 
+1
+Part B: Document Q&A App (RAG + AI Agents)
+Build a simple application (using Streamlit, Gradio, or a basic frontend) where a user can upload a
+document and interact with it.
+Document Ingestion: The app must allow the user to upload a PDF document. The backend should
+automatically extract the text and split it into manageable chunks.
+Vector Storage: Embed these text chunks and store them in a local vector database (like ChromaDB
+or FAISS).
+Chatbot Interface: Implement a chat UI where the user can ask questions. The system must use a
+Retrieval-Augmented Generation (RAG) pipeline to fetch the relevant chunks from the database and
+feed them to a local LLM to generate an accurate, context-aware answer.
+4. EXPECTED DELIVERABLES
+Source Code: A clean, organized repository containing both the Vision script (Part A) and the
+Chatbot app (Part B).
+Model Weights: The custom trained YOLO `.pt` (or equivalent) weight file for the water bottle
+detection.
+Documentation: A simple `README.md` explaining how to install dependencies, run the YOLO
+inference script, and launch the Chatbot web app.
+Demonstration: A short screen recording showing the water brand detection working on a live feed/
+video, and a demo of uploading a PDF and asking the chatbot a question about it.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+2
