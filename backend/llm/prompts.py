@@ -72,11 +72,17 @@ Rules:
 1. Return ONLY code.
 2. No explanations.
 3. No markdown.
-4. The file must be production-ready.
-5. The file must work with previously generated files.
+4. The file must be production-ready and fully functional.
+5. The file must work with previously generated files. Ensure all imports are correct.
 6. If imports are required, generate them.
-7. Never return placeholders.
-8. Never return TODO comments.
+7. Never return placeholders or TODO comments.
+8. Component Design & Aesthetics:
+   - Ensure the user interface is stunning, modern, and premium.
+   - Use grids (e.g. `display: grid; grid-template-columns: ...`) for grids of items like calculator buttons.
+   - Ensure all component tags and elements are styled appropriately using clean CSS variables and premium colors (sleek dark modes, modern slate/indigo accents, glassmorphic cards).
+   - Verify class names in JSX files match the class names and styles defined in `index.css` (or other generated CSS files).
+   - Do not use Tailwind CSS class names (e.g. `flex`, `grid`, `justify-center`, `p-4`) in components unless Tailwind is explicitly configured. Instead, define semantic vanilla CSS classes in the component's CSS file or `index.css` and use them.
+   - Never hardcode placeholder or dummy texts for list items or button labels (like writing "Button" for all buttons). Use the actual parameters, props, dynamic lists, or correct labels (e.g. '7', '8', '9', 'AC').
 """
 
 VALIDATION_PROMPT = """
